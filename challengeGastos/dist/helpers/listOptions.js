@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.billIndex = exports.totalOut = exports.totalIn = exports.createNewBill = exports.getAllBills = void 0;
+exports.createRandomBills = exports.billIndex = exports.totalOut = exports.totalIn = exports.createNewBill = exports.getAllBills = void 0;
 const billsPrompt_1 = require("./billsPrompt");
 const fsMethods_1 = require("./fsMethods");
 const getAllBills = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -61,3 +61,29 @@ const billIndex = () => __awaiter(void 0, void 0, void 0, function* () {
     console.log(`Usted ha ${-billsDifference ? "Perdido" : "Ganado"} ${Math.abs(billsDifference)} pesos`);
 });
 exports.billIndex = billIndex;
+const createRandomBills = () => __awaiter(void 0, void 0, void 0, function* () {
+    const billsData = yield (0, fsMethods_1.getBills)("gastos");
+    function getRandomValue() {
+        const randomNumber = Math.random();
+        if (randomNumber < 0.5) {
+            return "in";
+        }
+        else {
+            return "out";
+        }
+    }
+    function generateBillData() {
+        for (let i = 0; i < 10; i++) {
+            const billType = getRandomValue();
+            const billAmount = Math.floor(Math.random() * 1000) + 1;
+            billsData.push({
+                billType,
+                billAmount,
+            });
+        }
+    }
+    generateBillData();
+    (0, fsMethods_1.createBill)("gastos", billsData);
+    console.log(billsData);
+});
+exports.createRandomBills = createRandomBills;

@@ -1,5 +1,5 @@
 import inquirer from "inquirer";
-import { billIndex, createNewBill, getAllBills, totalIn, totalOut } from "./helpers/listOptions";
+import { billIndex, createNewBill, createRandomBills, getAllBills, totalIn, totalOut } from "./helpers/listOptions";
 
 
 const main = async () =>{
@@ -34,6 +34,10 @@ const main = async () =>{
                         name:"Mostrar ganancias o perdidas"
                     },
                     {
+                        value:6,
+                        name:"Crear 10 gastos aleatorios"
+                    },
+                    {
                         value:99,
                         name:"Salir"
                     },
@@ -63,6 +67,9 @@ const main = async () =>{
                 break;
             case 5:
                 billIndex();
+                break;
+            case 6:
+                createRandomBills();
                 break;
             case 99:
                 //Todo Logica para salir

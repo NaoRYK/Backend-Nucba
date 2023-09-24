@@ -44,6 +44,10 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
                     name: "Mostrar ganancias o perdidas"
                 },
                 {
+                    value: 6,
+                    name: "Crear 10 gastos aleatorios"
+                },
+                {
                     value: 99,
                     name: "Salir"
                 },
@@ -67,6 +71,9 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
             break;
         case 5:
             (0, listOptions_1.billIndex)();
+            break;
+        case 6:
+            (0, listOptions_1.createRandomBills)();
             break;
         case 99:
             //Todo Logica para salir

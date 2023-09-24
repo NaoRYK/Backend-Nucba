@@ -87,3 +87,32 @@ export const billIndex = async () =>{
     console.log(`Usted ha ${-billsDifference ? "Perdido" : "Ganado"} ${Math.abs(billsDifference)} pesos`);
     
 }
+
+export const createRandomBills = async () =>{
+
+    const billsData = await getBills("gastos");
+
+    function getRandomValue() {
+        const randomNumber = Math.random();
+        if (randomNumber < 0.5) {
+          return "in";
+        } else {
+          return "out";
+        }
+      }
+      function generateBillData() {
+
+        for (let i = 0; i < 10; i++) {
+          const billType = getRandomValue();
+          const billAmount = Math.floor(Math.random() * 1000) + 1;
+          billsData.push({
+            billType,
+            billAmount,
+          });
+        }
+      }
+      generateBillData();
+      createBill("gastos", billsData)
+      console.log(billsData)
+
+}
