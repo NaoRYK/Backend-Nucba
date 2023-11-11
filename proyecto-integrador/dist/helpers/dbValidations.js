@@ -13,11 +13,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.anEmailExist = void 0;
+const mailer_1 = require("../mailer/mailer");
 const usuario_1 = __importDefault(require("../models/usuario"));
 const anEmailExist = (email) => __awaiter(void 0, void 0, void 0, function* () {
     const anEmailExist = yield usuario_1.default.findOne({ email });
-    if (anEmailExist) {
+    if (anEmailExist && anEmailExist.verified) {
         throw new Error(`El correo ${email} ya está registrado`);
+    }
+    if (anEmailExist && !anEmailExist.verified) {
+        yield (0, mailer_1.sendEmail)(email, anEmailExist.code);
+        throw new Error(`El usuario ya está registrado. Se envió nuevamente el codigo de verificacion a ${email}`);
     }
 });
 exports.anEmailExist = anEmailExist;
