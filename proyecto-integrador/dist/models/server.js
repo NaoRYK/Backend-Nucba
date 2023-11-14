@@ -17,11 +17,15 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const auth_1 = __importDefault(require("../routes/auth"));
 const config_1 = require("../database/config");
+const orders_1 = __importDefault(require("../routes/orders"));
+const issues_1 = __importDefault(require("../routes/issues"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
         this.port = process.env.PORT;
         this.authPath = '/auth';
+        this.ordersPath = "/orders";
+        this.issuesPath = "/issues";
         this.middlewares();
         this.connectDB();
         this.routes();
@@ -37,6 +41,8 @@ class Server {
     }
     routes() {
         this.app.use(this.authPath, auth_1.default);
+        this.app.use(this.ordersPath, orders_1.default);
+        this.app.use(this.issuesPath, issues_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {
